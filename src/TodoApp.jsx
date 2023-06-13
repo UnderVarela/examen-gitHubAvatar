@@ -22,6 +22,17 @@ export function TodoApp () {
     })
     setTodo(clone)
   }
+  const handleSelectAll = () => {
+    if (!todo.length) return
+    const nuevoArray = todo.map(item => {
+      return { ...item, checked: true }
+    })
+    setTodo(nuevoArray)
+  }
+  const handleDeleteItem = id => {
+    const data = todo.filter(item => item.id !== id)
+    setTodo(data)
+  }
   return (
     <>
       <section className='grid gap-3'>
@@ -31,10 +42,11 @@ export function TodoApp () {
           To Do List
         </h1>
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoList todo={todo} />
-
+        <TodoList todo={todo} onDeleteItem={handleDeleteItem} />
+        {/* Opciones de ToDo */}
         <fieldset className='flex items-center gap-2'>
           <button
+            onClick={handleSelectAll}
             className='px-2 py-1 text-white bg-blue-500 border rounded-full hover:bg-blue-700'
           >Seleccionar todo
           </button>
