@@ -2,6 +2,9 @@ import { useState } from 'react'
 
 export function useTodo () {
   const [todo, setTodo] = useState([])
+  const getTodos = () => {
+    return structuredClone(todo)
+  }
   const handleAddTodo = task => {
     task = task.trim()
     // setTodo([ // shallow clone
@@ -49,7 +52,7 @@ export function useTodo () {
   }
 
   return {
-    todo,
+    getTodos,
     handleAddTodo,
     handleDeleteAll,
     handleDeleteItem,

@@ -1,10 +1,11 @@
 import { TodoForm } from './components/TodoForm'
 import { TodoList } from './components/TodoList'
 import { useTodo } from './hooks/useTodo'
+import TodoOptions from './components/TodoOptions'
 
 export function TodoApp () {
   const {
-    todo,
+    getTodos,
     handleAddTodo,
     handleDeleteAll,
     handleDeleteItem,
@@ -17,23 +18,12 @@ export function TodoApp () {
         <h1
           className='text-4xl font-bold'
         >
-          To Do List
+          Lista de Tareas
         </h1>
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoList todo={todo} onSelectItem={handleSelectItem} onDeleteItem={handleDeleteItem} />
+        <TodoList todo={getTodos()} onSelectItem={handleSelectItem} onDeleteItem={handleDeleteItem} />
         {/* Opciones de ToDo */}
-        <fieldset className='flex items-center gap-2'>
-          <button
-            onClick={handleSelectAll}
-            className='px-2 py-1 text-white bg-blue-500 border rounded-full hover:bg-blue-700'
-          >Seleccionar todo
-          </button>
-          <button
-            onClick={handleDeleteAll}
-            className='px-2 py-1 text-white bg-red-500 border rounded-full'
-          >Eliminar todo
-          </button>
-        </fieldset>
+        <TodoOptions handleSelectAll={handleSelectAll} handleDeleteAll={handleDeleteAll} />
       </section>
     </>
   )
