@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export function TodoItem ({ itemValue, onDeleteItem }) {
+export function TodoItem ({ itemValue, onDeleteItem, onSelectItem }) {
   const { id, task, checked } = itemValue
-  const [checkedItem, setCheckedItem] = useState(checked)
-  const classBoton = checkedItem ? 'bg-red-500' : 'bg-red-800'
+  const classBoton = checked ? 'bg-red-500' : 'bg-red-800'
   const handleChange = ({ target }) => {
-    setCheckedItem(target.checked)
+    onSelectItem(id)
   }
   const handleDelete = () => {
     onDeleteItem(id)
@@ -16,7 +15,7 @@ export function TodoItem ({ itemValue, onDeleteItem }) {
       <div>
         <input
           onChange={handleChange}
-          checked={checkedItem}
+          checked={checked}
           className='mr-2'
           type='checkbox'
         />
@@ -24,7 +23,7 @@ export function TodoItem ({ itemValue, onDeleteItem }) {
       </div>
       <button
         onClick={handleDelete}
-        disabled={!checkedItem}
+        disabled={!checked}
         className={`px-2 py-1 text-white ${classBoton} border rounded-full`}
       > Eliminar
       </button>
@@ -34,5 +33,6 @@ export function TodoItem ({ itemValue, onDeleteItem }) {
 
 TodoItem.propTypes = {
   itemValue: PropTypes.object,
-  onDeleteItem: PropTypes.func
+  onDeleteItem: PropTypes.func.isRequired,
+  onSelectItem: PropTypes.func.isRequired
 }

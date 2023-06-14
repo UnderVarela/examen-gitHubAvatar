@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TodoItem } from './TodoItem'
 
-export function TodoList ({ todo = [], onDeleteItem }) {
+export function TodoList ({ todo = [], onDeleteItem, onSelectItem }) {
   return (
     <ul className='grid w-80'>
       {/* Componente TodoItem */}
       {
         todo.map(item => (
-          <TodoItem onDeleteItem={onDeleteItem} key={item?.id} itemValue={item} />
+          <TodoItem onSelectItem={onSelectItem} onDeleteItem={onDeleteItem} key={item?.id} itemValue={item} />
         ))
       }
     </ul>
@@ -17,5 +17,6 @@ export function TodoList ({ todo = [], onDeleteItem }) {
 
 TodoList.propTypes = {
   todo: PropTypes.array,
-  onDeleteItem: PropTypes.func
+  onDeleteItem: PropTypes.func.isRequired,
+  onSelectItem: PropTypes.func.isRequired
 }
