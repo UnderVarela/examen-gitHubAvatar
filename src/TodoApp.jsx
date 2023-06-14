@@ -12,6 +12,7 @@ export function TodoApp () {
     handleSelectAll,
     handleSelectItem
   } = useTodo()
+  const todoArray = getTodos()
   return (
     <>
       <section className='grid gap-3'>
@@ -21,9 +22,14 @@ export function TodoApp () {
           Lista de Tareas
         </h1>
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoList todo={getTodos()} onSelectItem={handleSelectItem} onDeleteItem={handleDeleteItem} />
-        {/* Opciones de ToDo */}
-        <TodoOptions handleSelectAll={handleSelectAll} handleDeleteAll={handleDeleteAll} />
+        {
+            Boolean(todoArray.length) && (
+              <>
+              <TodoList todo={todoArray} onSelectItem={handleSelectItem} onDeleteItem={handleDeleteItem} />
+              <TodoOptions handleSelectAll={handleSelectAll} handleDeleteAll={handleDeleteAll} />
+              </>
+            )
+          }
       </section>
     </>
   )
